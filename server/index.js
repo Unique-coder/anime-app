@@ -3,7 +3,13 @@ import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
 
+// Access the routes by importing it into index.js
+import postRoutes from "./routes/posts.js";
+
 const app = express();
+
+// Set-up the starting route for all route sin post.js
+app.use("/posts", postRoutes);
 
 // read the “body” of an incoming JSON object.
 //// OLD METHOD ///////////
@@ -18,8 +24,8 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 // Connection from out Database cloud. Mongo-DB ATlas
-const CONNECTION_URL =
-  "mongodb+srv://Unique-Data:9s5bvg0MhmrFlHRI@cluster0.mrios.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+//mongodb://127.0.0.1:27017/memory-app
+const CONNECTION_URL = "mongodb://127.0.0.1:27017/memory-app";
 
 //Our access port. Changes when we deploy with heroku
 const PORT = process.env.PORT || 5000;
