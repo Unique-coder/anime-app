@@ -4,10 +4,10 @@
 // const mongoose = require("mongoose");
 
 // New Method
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
 // Data-Base JSON Schema!!!
-const postSchema = Schema({
+const postSchema = mongoose.Schema({
   title: String,
   message: String,
   creator: String,
@@ -24,6 +24,6 @@ const postSchema = Schema({
 });
 
 // Turn Schema into a module
-const postMessage = model("postMessage", postSchema);
+const postMessage = mongoose.model("postMessage", postSchema);
 
 export default postMessage;
