@@ -8,9 +8,6 @@ import postRoutes from "./routes/posts.js";
 
 const app = express();
 
-// Set-up the starting route for all route sin post.js
-app.use("/posts", postRoutes);
-
 // read the “body” of an incoming JSON object.
 //// OLD METHOD ///////////
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -22,6 +19,9 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 //allows servers to specify not only who can access the assets, but also how they can be accessed
 app.use(cors());
+
+// Set-up the starting route for all route sin post.js
+app.use("/posts", postRoutes);
 
 // Connection from out Database cloud. Mongo-DB ATlas
 //mongodb://127.0.0.1:27017/memory-app

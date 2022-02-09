@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import { useEffect } from "react";
 import Grow from "@mui/material/Grow";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import Grid from "@mui/material/Grid";
 
+import { useDispatch } from "react-redux";
+
+import { getPosts } from "./actions/post";
 import Form from "./components/Form/Form";
 import Posts from "./components/Posts/Posts";
 import memories from "./images/memories.png";
@@ -13,6 +16,12 @@ import useStyles from "./style";
 
 const App = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
+
   return (
     <Container maxWidth="lg">
       <AppBar className={classes.appBar} position="static" color="inherit">
