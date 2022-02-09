@@ -10,6 +10,6 @@ const router = express.Router();
 router.get("/", getPosts);
 
 // Post a information to the database of  user
-router.get("/", createPost);
+router.post("/", createPost);
 
 export default router;

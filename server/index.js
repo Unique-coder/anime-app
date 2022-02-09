@@ -25,7 +25,8 @@ app.use("/posts", postRoutes);
 
 // Connection from out Database cloud. Mongo-DB ATlas
 //mongodb://127.0.0.1:27017/memory-app
-const CONNECTION_URL = "mongodb://127.0.0.1:27017/memory-app";
+const CONNECTION_URL =
+  "mongodb+srv://Unique-Data:9s5bvg0MhmrFlHRI@cluster0.mrios.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 //Our access port. Changes when we deploy with heroku
 const PORT = process.env.PORT || 5000;
