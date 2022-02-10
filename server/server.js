@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
+import "dotenv/config";
 
 // Access the routes by importing it into index.js
 import postRoutes from "./routes/posts.js";
@@ -25,8 +26,9 @@ app.use("/posts", postRoutes);
 
 // Connection from out Database cloud. Mongo-DB ATlas
 //mongodb://127.0.0.1:27017/memory-app
-const CONNECTION_URL =
-  "mongodb+srv://Unique-Data:9s5bvg0MhmrFlHRI@cluster0.mrios.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+// Env Const (Get values that should be hidden from env file)
+const CONNECTION_URL = "mongodb://127.0.0.1:27017/memory-app";
 
 //Our access port. Changes when we deploy with heroku
 const PORT = process.env.PORT || 5000;
