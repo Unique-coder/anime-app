@@ -16,7 +16,7 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import useStyles from "./styles";
 
-const Post = ({ post }) => {
+const Post = ({ post, setCurrentId }) => {
   // const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -40,7 +40,7 @@ const Post = ({ post }) => {
         <Button
           style={{ color: "white" }}
           size="small"
-          // onClick={() => setCurrentId(post._id)}
+          onClick={() => setCurrentId(post._id)}
         >
           <MoreHorizIcon fontSize="default" />
         </Button>

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Grow from "@mui/material/Grow";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -18,9 +18,11 @@ const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const [currentId, setCurrentId] = useState(0);
+
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch]);
+  }, [currentId, dispatch]);
 
   return (
     <Container maxWidth="lg">
@@ -39,10 +41,10 @@ const App = () => {
             spacing={3}
           >
             <Grid item xs={12} sm={7}>
-              <Posts />
+              <Posts setCurrentId={setCurrentId} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form />
+              <Form currentId={currentId} setCurrentId={setCurrentId} />
             </Grid>
           </Grid>
         </Container>
