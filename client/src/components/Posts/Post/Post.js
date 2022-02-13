@@ -16,8 +16,10 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import useStyles from "./styles";
 
+import { deletePost } from "../../../actions/post";
+
 const Post = ({ post, setCurrentId }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   return (
@@ -74,7 +76,7 @@ const Post = ({ post, setCurrentId }) => {
         <Button
           size="small"
           color="primary"
-          // onClick={() => dispatch(deletePost(post._id))}
+          onClick={() => dispatch(deletePost(post._id))}
         >
           <DeleteIcon fontSize="small" /> Delete
         </Button>
