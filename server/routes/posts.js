@@ -5,6 +5,7 @@ import {
   createPost,
   updatePost,
   deletePost,
+  likePost,
 } from "../controllers/post.js";
 
 const router = express.Router();
@@ -17,10 +18,13 @@ router.get("/", getPosts);
 // Post a information to the database of  user
 router.post("/", createPost);
 
-// Updating an existing information to the database of  user
+// Updating an existing information on the database of  user
 router.patch("/:id", updatePost);
 
 // Delete an existing information on the database
 router.delete("/:id", deletePost);
+
+// Update like count information on the database
+router.patch("/:id/likePost", likePost);
 
 export default router;
