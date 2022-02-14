@@ -5,7 +5,6 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import Grid from "@mui/material/Grid";
-
 import { useDispatch } from "react-redux";
 
 import { getPosts } from "./actions/post";
@@ -17,7 +16,6 @@ import useStyles from "./style";
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
   const [currentId, setCurrentId] = useState(0);
 
   useEffect(() => {
@@ -35,6 +33,7 @@ const App = () => {
       <Grow in>
         <Container>
           <Grid
+            className={classes.mainContainer}
             container
             justify="space-between"
             // alignItems="stretch"

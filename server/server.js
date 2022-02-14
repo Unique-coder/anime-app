@@ -2,12 +2,13 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
-import "dotenv/config";
+import dotenv from "dotenv";
 
 // Access the routes by importing it into index.js
 import postRoutes from "./routes/posts.js";
 
 const app = express();
+dotenv.config();
 
 // read the “body” of an incoming JSON object.
 //// OLD METHOD ///////////
