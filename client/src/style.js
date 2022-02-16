@@ -17,5 +17,7 @@ export default makeStyles(() => ({
   },
   mainContainer: {
     flexDirection: "column-reverse",
+    border: "1px solid blue",
+    gap: "60px",
   },
 }));

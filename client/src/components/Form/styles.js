@@ -8,6 +8,8 @@ const userStyles = makeStyles(() => ({
   },
   paper: {
     padding: "16px",
+    // border: "1px solid GREEN",
+    float: "right",
   },
   form: {
     display: "flex",

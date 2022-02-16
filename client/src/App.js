@@ -16,7 +16,7 @@ import useStyles from "./style";
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [currentId, setCurrentId] = useState(0);
+  const [currentId, setCurrentId] = useState(null);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -42,7 +42,7 @@ const App = () => {
             <Grid item xs={12} sm={7}>
               <Posts setCurrentId={setCurrentId} />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={4} className={classes.gridTwo}>
               <Form currentId={currentId} setCurrentId={setCurrentId} />
             </Grid>
           </Grid>
