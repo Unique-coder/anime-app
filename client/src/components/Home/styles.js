@@ -4,6 +4,6 @@ export default makeStyles(() => ({
   mainContainer: {
     flexDirection: "row",
     border: "1px solid blue",
-    gap: "100px",
+    gap: "150px",
   },
 }));
