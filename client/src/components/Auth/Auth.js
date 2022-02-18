@@ -1,15 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { Avatar, Button, Paper, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { GoogleLogin } from "react-google-login";
 
 import useStyles from "./styles";
+import Icon from "./icon";
 import Input from "./Input";
 
 const Auth = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
@@ -31,6 +36,23 @@ const Auth = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
 
     handleShowPassword(false);
+  };
+
+  const googleSuccess = async (res) => {
+    const result = res?.profileObj;
+    const token = result?.tokenId;
+
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
+
+      // UseNavigate replaces useHistory is Router v6
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const googleFailure = () => {
+    console.log("Google sign-in Unsuccessful. Try Again");
   };
 
   return (
@@ -92,7 +114,25 @@ const Auth = () => {
           >
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
-
+          <GoogleLogin
+            clientId="195062520445-8ehbo9jec2mtaeeskrgl55qisi3gsrcs.apps.googleusercontent.com"
+            render={(renderProps) => (
+              <Button
+                className={classes.googleButton}
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                startIcon={<Icon />}
+              >
+                Google Sign In
+              </Button>
+            )}
+            onSuccess={googleSuccess}
+            onFailure={googleFailure}
+            cookiePolicy="single_host_origin"
+          />
           <Grid container justify="flex-end">
             <Grid item>
               <Button onClick={switchMode}>

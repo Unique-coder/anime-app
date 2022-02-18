@@ -1,11 +1,36 @@
+/* eslint-disable no-unused-vars */
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@mui/material";
 import useStyles from "./styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 // import memories from "../../images/memories.png";
 
 const Navbar = () => {
   const classes = useStyles();
-  const user = null;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+
+  const logout = () => {
+    try {
+      dispatch({ type: "LOGOUT" });
+
+      // UseNavigate replaces useHistory is Router v6
+      navigate("/auth");
+
+      setUser(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    // const token = user?.token;
+
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location]);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
@@ -38,7 +63,7 @@ const Navbar = () => {
               variant="contained"
               className={classes.logout}
               color="secondary"
-              // onClick={logout}
+              onClick={logout}
             >
               Logout
             </Button>

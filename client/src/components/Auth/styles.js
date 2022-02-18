@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 // import { createTheme } from "@mui/material/styles";
 
-export default makeStyles((theme) => ({
+export default makeStyles(() => ({
   paper: {
     marginTop: "16px",
     display: "flex",
