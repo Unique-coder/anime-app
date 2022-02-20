@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 // Access the routes by importing it into index.js
 import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/users.js";
 
 const app = express();
 dotenv.config();
@@ -22,8 +23,9 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 //allows servers to specify not only who can access the assets, but also how they can be accessed
 app.use(cors());
 
-// Set-up the starting route for all route sin post.js
+// Set-up the starting route for all route in post.js
 app.use("/posts", postRoutes);
+app.use("/user", userRoutes);
 
 // Connection from out Database cloud. Mongo-DB ATlas
 //mongodb://127.0.0.1:27017/memory-app

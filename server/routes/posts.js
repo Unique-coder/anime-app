@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-// Based on our app.use rout in index.js, all routes will begin with  "http://localhost:5000/posts"
+// Based on our app.use route in index.js, all routes will begin with  "http://localhost:5000/posts"
 
 // Get request from use to a route
 router.get("/", getPosts);

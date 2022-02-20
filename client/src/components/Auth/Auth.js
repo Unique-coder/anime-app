@@ -7,15 +7,25 @@ import Grid from "@mui/material/Grid";
 import { Avatar, Button, Paper, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { GoogleLogin } from "react-google-login";
+import { signup, signin } from "../../actions/auth";
 
 import useStyles from "./styles";
 import Icon from "./icon";
 import Input from "./Input";
 
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 const Auth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
+  const [formData, setFormData] = useState(initialState);
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
 
@@ -23,9 +33,20 @@ const Auth = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const handleChange = () => {};
+    if (isSignup) {
+      dispatch(signup(formData, navigate));
+    } else {
+      dispatch(signin(formData, navigate));
+    }
+  };
+
+  // Allows us to muttate all states at once and not stress over each of them independently
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: [e.target.value] });
+  };
 
   const switchMode = (e) => {
     e.preventDefault();

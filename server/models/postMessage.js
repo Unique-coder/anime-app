@@ -1,4 +1,4 @@
-// Designing our data base Mongoose Schema
+// Designing our post data base Mongoose Schema
 
 // OLD Methods
 // const mongoose = require("mongoose");
