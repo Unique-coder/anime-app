@@ -8,6 +8,8 @@ import {
   likePost,
 } from "../controllers/post.js";
 
+import auth from "../middleware/auth";
+
 const router = express.Router();
 
 // Based on our app.use route in index.js, all routes will begin with  "http://localhost:5000/posts"
@@ -16,15 +18,15 @@ const router = express.Router();
 router.get("/", getPosts);
 
 // Post a information to the database of  user
-router.post("/", createPost);
+router.post("/", auth, createPost);
 
 // Updating an existing information on the database of  user
-router.patch("/:id", updatePost);
+router.patch("/:id", auth, updatePost);
 
 // Delete an existing information on the database
-router.delete("/:id", deletePost);
+router.delete("/:id", auth, deletePost);
 
 // Update like count information on the database
-router.patch("/:id/likePost", likePost);
+router.patch("/:id/likePost", auth, likePost);
 
 export default router;
