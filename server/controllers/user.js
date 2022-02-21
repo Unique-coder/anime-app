@@ -48,7 +48,11 @@ export const signin = async (req, res) => {
 // Sign up function
 export const signup = async (req, res) => {
   // Get email,password and etc details form the post req data
-  const { email, password, confirmPassword, firstName, lastName } = req.body;
+  const { email, firstName, lastName } = req.body;
+  const password = await req.body.password;
+  const confirmPassword = await req.body.confirmPassword;
+
+  const salt = await bcrypt.genSalt(12);
 
   try {
     // check if user is an existing user. Wh? to not duplicate email addresses!
@@ -58,12 +62,14 @@ export const signup = async (req, res) => {
     if (existingUser)
       return res.status(400).json({ message: "User already exist" });
 
-    //Check if the password and confirm password dont match
+    // Check if the password and confirm password dont match
     if (password !== confirmPassword)
-      return res.status(400).json({ message: "Password is not the same" });
+      return res.status(400).json({
+        message: `Password don't match ${password} ${confirmPassword}`,
+      });
 
     // Hash the password using bcrypt. password,+salt(level of hashing difficulty).
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create our user object with all the information on the database
     const result = await User.create({
@@ -77,8 +83,8 @@ export const signup = async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ result: result, token: token });
+    res.status(200).json({ result, token });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: error.message });
   }
 };

@@ -43,7 +43,7 @@ const Auth = () => {
     }
   };
 
-  // Allows us to muttate all states at once and not stress over each of them independently
+  // Allows us to mutate all states at once and not stress over each of them independently
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: [e.target.value] });
   };
@@ -56,7 +56,7 @@ const Auth = () => {
     // Method Two
     setIsSignup((prevIsSignup) => !prevIsSignup);
 
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
