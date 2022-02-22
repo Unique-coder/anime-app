@@ -3,7 +3,7 @@ import jwt, { decode } from "jsonwebtoken";
 const auth = async (req, res, next) => {
   try {
     const token = await req.headers.authorization.split(" ")[1];
-    const isCustomAuth = token.length < 500 || token;
+    const isCustomAuth = token.length < 500;
 
     let decodedData;
 
@@ -19,7 +19,7 @@ const auth = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 

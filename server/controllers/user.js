@@ -9,6 +9,8 @@ import jwt from "jsonwebtoken";
 // Import schema module from our model folder
 import User from "../models/user.js";
 
+// const salt = bcrypt.genSalt(12);
+
 // Sign in function
 export const signin = async (req, res) => {
   // Get email and password details form the post req data
@@ -39,7 +41,7 @@ export const signin = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.status(200).json({ result: existingUser, token: token });
+    res.status(200).json({ result: existingUser, token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -48,28 +50,21 @@ export const signin = async (req, res) => {
 // Sign up function
 export const signup = async (req, res) => {
   // Get email,password and etc details form the post req data
-  const { email, firstName, lastName } = req.body;
-  const password = await req.body.password;
-  const confirmPassword = await req.body.confirmPassword;
-
-  const salt = await bcrypt.genSalt(12);
+  const { email, firstName, lastName, password, confirmPassword } = req.body;
 
   try {
-    // check if user is an existing user. Wh? to not duplicate email addresses!
+    // check if user is an existing user. Why? to not duplicate email addresses!
     const existingUser = await User.findOne({ email });
 
     // json response message if such user email is already in database
     if (existingUser)
       return res.status(400).json({ message: "User already exist" });
 
-    // Check if the password and confirm password dont match
     if (password !== confirmPassword)
-      return res.status(400).json({
-        message: `Password don't match ${password} ${confirmPassword}`,
-      });
+      return res.status(403).json({ message: "Passwords do not match" });
 
     // Hash the password using bcrypt. password,+salt(level of hashing difficulty).
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create our user object with all the information on the database
     const result = await User.create({
@@ -78,10 +73,10 @@ export const signup = async (req, res) => {
       name: `${firstName} ${lastName}`,
     });
 
+    // console.log(result.email, result.password, result.name);
+
     // Get jsonwebtoken and send t the frontend. Information to store in the token, + secret key string, + How long to stay logged in
-    const token = jwt.sign({ email: result.email, id: result._id }, "Unique", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ email: result.email, id: result._id }, "Unique");
 
     res.status(200).json({ result, token });
   } catch (error) {

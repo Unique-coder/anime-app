@@ -10,6 +10,6 @@ const userSchema = mongoose.Schema({
 });
 
 // Turn Schema into a module
-const User = mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);
 
-export default User;
+// export default User;

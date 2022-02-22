@@ -25,7 +25,7 @@ app.use(cors());
 
 // Set-up the starting route for all route in post.js
 app.use("/posts", postRoutes);
-app.use("/users", userRoutes);
+app.use("/user", userRoutes);
 
 // Connection from out Database cloud. Mongo-DB ATlas
 //mongodb://127.0.0.1:27017/memory-app

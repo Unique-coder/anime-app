@@ -45,7 +45,7 @@ const Auth = () => {
 
   // Allows us to mutate all states at once and not stress over each of them independently
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: [e.target.value] });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const switchMode = (e) => {
@@ -69,7 +69,7 @@ const Auth = () => {
       // UseNavigate replaces useHistory is Router v6
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
   const googleFailure = () => {
