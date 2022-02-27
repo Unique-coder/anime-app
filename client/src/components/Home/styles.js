@@ -6,4 +6,11 @@ export default makeStyles(() => ({
     border: "1px solid blue",
     gap: "150px",
   },
+  pagination: {
+    display: "flex",
+    flexDirection: "row",
+    borderRadius: 4,
+    marginTop: "1rem",
+    padding: "16px",
+  },
 }));
