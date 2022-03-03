@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 import useStyles from "./styles";
 import styles from "./ReactTags.module.scss";
 
-import { getPosts } from "../../actions/post";
+import { getPosts, getPostsBySearch } from "../../actions/post";
 import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
 import Pagination from "../Pagination";
@@ -27,6 +27,7 @@ function useQuery() {
 }
 const Home = () => {
   const [currentId, setCurrentId] = useState(0);
+  const navigate = useNavigate();
   const classes = useStyles();
   const dispatch = useDispatch();
   const query = useQuery();
@@ -35,6 +36,14 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [tags, setTags] = useState([]);
 
+  const searchPost = () => {
+    if (search.trim() || tags) {
+      // dispatch -> fetch post
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+    } else {
+      navigate.push("/");
+    }
+  };
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
@@ -90,7 +99,7 @@ const Home = () => {
               position="static"
               color="inherit"
             >
-              {/* <TextField
+              <TextField
                 // onKeyDown={handleKeyPress}
                 name="search"
                 variant="outlined"
@@ -99,7 +108,7 @@ const Home = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <Chip
+              {/* <Chip
                 label="Search Tags"
                 value={tags}
                 style={{ margin: "10px 0" }}
@@ -115,12 +124,19 @@ const Home = () => {
                   handleDrag={handleDrag}
                   delimiters={delimiters}
                   onClearAll={onClearAll}
-                  placeholder="Search memories"
+                  placeholder="Search Tags"
                   inputFieldPosition="top"
-                  autocomplete
                   clearAll={true}
                 />
               </div>
+              <Button
+                onclick={searchPost}
+                className={classes.searchButton}
+                color="primary"
+                variant="contained"
+              >
+                Search
+              </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper className={classes.pagination} elevation={6}>

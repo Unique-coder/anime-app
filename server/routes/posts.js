@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getPostsBySearch,
   getPosts,
   createPost,
   updatePost,
@@ -13,6 +14,9 @@ import auth from "../middleware/auth.js";
 const router = express.Router();
 
 // Based on our app.use route in index.js, all routes will begin with  "http://localhost:5000/posts"
+
+// Get request from user search
+router.get("/search", getPostsBySearch);
 
 // Get request from use to a route
 router.get("/", getPosts);
