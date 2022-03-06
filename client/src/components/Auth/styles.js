@@ -1,5 +1,7 @@
-import { makeStyles } from "@material-ui/styles";
-// import { createTheme } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+import { createTheme } from "@mui/material/styles";
+
+const theme = createTheme();
 
 export default makeStyles(() => ({
   paper: {
@@ -16,7 +18,7 @@ export default makeStyles(() => ({
   },
   avatar: {
     margin: "8px",
-    // backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.

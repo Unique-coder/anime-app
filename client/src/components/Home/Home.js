@@ -34,25 +34,35 @@ const Home = () => {
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
   const [search, setSearch] = useState("");
-  const [tags, setTags] = useState([]);
+  let [tags, setTags] = useState([]);
 
   const searchPost = () => {
+    const tag = tags.map((item) => item.text);
+
+    tags = tag;
+
+    // console.log(tags);
+    console.log(search);
+
     if (search.trim() || tags) {
       // dispatch -> fetch post
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+      navigate(
+        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+      );
     } else {
-      navigate.push("/");
+      navigate("/");
     }
   };
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
 
-  // const handleKeyPress = (e) => {
-  //   if (e.keycode === 13) {
-  //     // Search post
-  //   }
-  // };
+  const handleKeyPress = (e) => {
+    if (e.keycode === 13) {
+      searchPost();
+    }
+  };
 
   const KeyCodes = {
     comma: 188,
@@ -100,7 +110,7 @@ const Home = () => {
               color="inherit"
             >
               <TextField
-                // onKeyDown={handleKeyPress}
+                onKeyDown={handleKeyPress}
                 name="search"
                 variant="outlined"
                 label="Search Memories"
@@ -130,7 +140,7 @@ const Home = () => {
                 />
               </div>
               <Button
-                onclick={searchPost}
+                onClick={searchPost}
                 className={classes.searchButton}
                 color="primary"
                 variant="contained"
@@ -140,7 +150,7 @@ const Home = () => {
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper className={classes.pagination} elevation={6}>
-              <Pagination />
+              <Pagination page={page} />
             </Paper>
           </Grid>
         </Grid>

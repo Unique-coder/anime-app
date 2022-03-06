@@ -20,12 +20,13 @@ export const getPostsBySearch = async (req, res) => {
 
   try {
     const title = new RegExp(searchQuery, "i");
+    // i stands for ignore case sensitive
 
     const posts = await postMessage.find({
       $or: [{ title }, { tags: { $in: tags.split(",") } }],
     });
 
-    res.json({ posts });
+    res.json({ data: posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
