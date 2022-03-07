@@ -1,10 +1,18 @@
+/* eslint-disable no-unused-vars */
+import { useEffect } from "react";
 import { Pagination, PaginationItem } from "@mui/material";
 import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts } from "../actions/post";
 import useStyles from "./styles";
 
-const Paginate = () => {
+const Paginate = ({ page }) => {
   const classes = useStyles;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (page) dispatch(getPosts(page));
+  }, [dispatch, page]);
 
   return (
     <Pagination

@@ -54,9 +54,9 @@ const Home = () => {
       navigate("/");
     }
   };
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]);
+  // useEffect(() => {
+  //   dispatch(getPosts());
+  // }, [currentId, dispatch]);
 
   const handleKeyPress = (e) => {
     if (e.keycode === 13) {
