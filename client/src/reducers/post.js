@@ -1,5 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
+  FETCH_POST,
   FETCH_ALL,
   FETCH_BY_SEARCH,
   CREATE,
@@ -53,6 +54,9 @@ export default (state = { isLoading: true, posts: [] }, action) => {
 
     case FETCH_BY_SEARCH:
       return { ...state, posts: action.payload };
+
+    case FETCH_POST:
+      return { ...state, post: action.payload };
 
     case LIKE:
       return {

@@ -3,6 +3,7 @@ import express from "express";
 import {
   getPostsBySearch,
   getPosts,
+  getPost,
   createPost,
   updatePost,
   deletePost,
@@ -20,6 +21,8 @@ router.get("/search", getPostsBySearch);
 
 // Get request from use to a route
 router.get("/", getPosts);
+
+router.get("/:id", getPost);
 
 // Post a information to the database of  user
 router.post("/", auth, createPost);

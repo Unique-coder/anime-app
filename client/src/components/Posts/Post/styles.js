@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
 
-const useStyles = makeStyles({
+export default makeStyles({
   media: {
     height: 0,
     paddingTop: "56.25%",
@@ -49,6 +49,8 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
   },
+  cardAction: {
+    display: "block",
+    textAlign: "initial",
+  },
 });
-
-export default useStyles;

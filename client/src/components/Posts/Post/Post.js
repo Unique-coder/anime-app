@@ -56,7 +56,7 @@ const Post = ({ post, setCurrentId }) => {
     );
   };
 
-  const openPost = () => {
+  const openPost = (e) => {
     navigate(`posts/${post._id}`);
   };
 
@@ -80,13 +80,13 @@ const Post = ({ post, setCurrentId }) => {
         {(user?.result?.googleId === post?.creator ||
           user?.result?._id === post?.creator) && (
           <div className={classes.overlay2}>
-            <Button
+            <div
               style={{ color: "white" }}
               size="small"
               onClick={() => setCurrentId(post._id)}
             >
               <MoreHorizIcon fontSize="default" />
-            </Button>
+            </div>
           </div>
         )}
         <div className={classes.details}>

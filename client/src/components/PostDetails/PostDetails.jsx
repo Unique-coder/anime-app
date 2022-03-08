@@ -5,7 +5,6 @@ import { Paper, Typography, Divider, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-
 import useStyles from "./styles";
 
 const PostDetails = () => {
@@ -14,6 +13,26 @@ const PostDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { post, posts, isLoading } = useSelector((state) => state.posts);
+
+  // useEffect(() => {
+  //   if (post) {
+  //     dispatch(
+  //       getPostsBySearch({ search: "none", tags: post?.tags.join(",") })
+  //     );
+  //   }
+  // }, [post]);
+
+  if (!post) return null;
+
+  const openPost = (_id) => navigate(`/posts/${_id}`);
+
+  if (isLoading) {
+    return (
+      <Paper elevation={6} className={classes.loadingPaper}>
+        <CircularProgress size="7em" />
+      </Paper>
+    );
+  }
 
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
