@@ -6,7 +6,7 @@ const theme = createTheme();
 export default makeStyles(() => ({
   mainContainer: {
     flexDirection: "row",
-    border: "1px solid blue",
+    // border: "1px solid blue",
     // gap: "150px ",
     [theme.breakpoints.down("xs")]: {
       flexDirection: "column-reverse",

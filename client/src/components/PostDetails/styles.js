@@ -1,6 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export default makeStyles((theme) => ({
+import { createTheme } from "@mui/material/styles";
+
+const theme = createTheme();
+
+export default makeStyles(() => ({
   media: {
     borderRadius: "20px",
     objectFit: "cover",

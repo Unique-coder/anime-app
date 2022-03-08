@@ -35,7 +35,7 @@ import {
 // };
 
 // Change from "state=[]", to "isLoading: true, posts:[]"
-export default (state = [], action) => {
+export default (state = { isLoading: true, posts: [] }, action) => {
   switch (action.type) {
     case START_LOADING:
       return { ...state, isLoading: true };

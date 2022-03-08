@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
 
-const userStyles = makeStyles({
+const useStyles = makeStyles({
   media: {
     height: 0,
     paddingTop: "56.25%",
@@ -51,4 +51,4 @@ const userStyles = makeStyles({
   },
 });
 
-export default userStyles;
+export default useStyles;
