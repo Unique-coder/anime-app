@@ -57,7 +57,7 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   const openPost = (e) => {
-    navigate(`posts/${post._id}`);
+    navigate(`/posts/${post._id}`);
   };
 
   return (

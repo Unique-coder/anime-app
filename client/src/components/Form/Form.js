@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
-
+import { useNavigate } from "react-router-dom";
 import useStyles from "./styles";
 import { createPost, updatePost } from "../../actions/post";
 
@@ -18,9 +18,12 @@ const Form = ({ currentId, setCurrentId }) => {
   });
 
   const post = useSelector((state) =>
-    currentId ? state.posts.find((message) => message._id === currentId) : null
+    currentId
+      ? state.posts.posts.find((message) => message._id === currentId)
+      : null
   );
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -49,7 +52,11 @@ const Form = ({ currentId, setCurrentId }) => {
       );
       clear();
     } else {
+      // This is the dispatch that allows us create a post and renders with other post
       dispatch(createPost({ ...postData, name: user?.result?.name }));
+
+      // This is the dispatch that allows us create a post and renders on the getPost request page "posts/id"
+      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
       clear();
     }
   };

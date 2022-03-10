@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 
@@ -7,6 +8,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import useStyles from "./styles";
 
+import { getPost, getPostsBySearch } from "../../actions/post";
+
 const PostDetails = () => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -14,17 +17,19 @@ const PostDetails = () => {
   const { id } = useParams();
   const { post, posts, isLoading } = useSelector((state) => state.posts);
 
-  // useEffect(() => {
-  //   if (post) {
-  //     dispatch(
-  //       getPostsBySearch({ search: "none", tags: post?.tags.join(",") })
-  //     );
-  //   }
-  // }, [post]);
+  useEffect(() => {
+    dispatch(getPost(id));
+  }, [id]);
+
+  //  useEffect(() => {
+  //    if (post) {
+  //      dispatch(getPostsBySearch({ search: "none", tags: post?.tags.join(",") }));
+  //    }
+  //  }, [post]);
 
   if (!post) return null;
 
-  const openPost = (_id) => navigate(`/posts/${_id}`);
+  const openPost = (_id) => navigate(`/posts/${post._id}`);
 
   if (isLoading) {
     return (
@@ -33,6 +38,8 @@ const PostDetails = () => {
       </Paper>
     );
   }
+
+  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
 
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
@@ -77,7 +84,7 @@ const PostDetails = () => {
           />
         </div>
       </div>
-      {/* {!!recommendedPosts.length && (
+      {!!recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">
             You might also like:
@@ -103,13 +110,18 @@ const PostDetails = () => {
                   <Typography gutterBottom variant="subtitle1">
                     Likes: {likes.length}
                   </Typography>
-                  <img src={selectedFile} width="200px" />
+                  <img
+                    className={classes.mediaSmall}
+                    src={selectedFile}
+                    width="200px"
+                    alt="pic"
+                  />
                 </div>
               )
             )}
           </div>
         </div>
-      )} */}
+      )}
     </Paper>
   );
 };

@@ -11,6 +11,10 @@ export default makeStyles(() => ({
     width: "100%",
     maxHeight: "600px",
   },
+  mediaSmall: {
+    borderRadius: "20px",
+    objectFit: "cover",
+  },
   card: {
     display: "flex",
     width: "100%",
