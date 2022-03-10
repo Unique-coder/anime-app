@@ -4,13 +4,21 @@ import { useState, useRef } from "react";
 import { Typography, TextField, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import useStyles from "./styles";
+import { commentPost } from "../../actions/post";
 
 const CommentSection = ({ post }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [comments, setComments] = useState([1, 2, 3, 4]);
-  const [comment, setComment] = useState();
+  const [comment, setComment] = useState("");
 
-  const handleClick = () => {};
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const handleClick = () => {
+    const finalComment = `${user.result.name}: ${comment}`;
+
+    dispatch(commentPost(finalComment, post._id));
+  };
 
   return (
     <div>
@@ -43,9 +51,12 @@ const CommentSection = ({ post }) => {
             style={{ marginTop: "10px" }}
             fullWidth
             variant="contained"
+            color="primary"
             disabled={!comment}
             onclick={handleClick}
-          />
+          >
+            Comment
+          </Button>
         </div>
       </div>
     </div>

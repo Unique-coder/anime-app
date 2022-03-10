@@ -1,5 +1,6 @@
 import * as api from "../api/index.js";
 import {
+  // COMMENT,
   FETCH_POST,
   FETCH_ALL,
   FETCH_BY_SEARCH,
@@ -66,7 +67,7 @@ export const createPost = (post, navigate) => async (dispatch) => {
     dispatch({ type: CREATE, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
@@ -76,7 +77,7 @@ export const updatePost = (id, post) => async (dispatch) => {
 
     dispatch({ type: UPDATE, payload: data });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
@@ -86,7 +87,7 @@ export const deletePost = (id) => async (dispatch) => {
 
     dispatch({ type: DELETE, payload: id });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
@@ -96,6 +97,16 @@ export const likePost = (id) => async (dispatch) => {
 
     dispatch({ type: LIKE, payload: data });
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
+  }
+};
+
+export const commentPost = (value, id) => async (dispatch) => {
+  try {
+    await api.comment(value, id);
+
+    // dispatch({ type: COMMENT, payload: data });
+  } catch (error) {
+    console.error(error.message);
   }
 };
