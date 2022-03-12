@@ -12,7 +12,7 @@ const CommentSection = ({ post }) => {
   const [comments, setComments] = useState([1, 2, 3, 4]);
   const [comment, setComment] = useState("");
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   const handleClick = () => {
     const finalComment = `${user.result.name}: ${comment}`;
@@ -33,31 +33,34 @@ const CommentSection = ({ post }) => {
             </Typography>
           ))}
         </div>
-        <div style={{ width: "70%" }}>
-          <Typography gutterBottom variant="h6">
-            Write a comment
-          </Typography>
-          <TextField
-            fullWidth
-            variant="outlined"
-            rows={4}
-            label="Comment"
-            multiline
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
+        {/* Check if there is a user logged in. If there is, show comments textfield if not hide it. */}
+        {user?.result?.name && (
+          <div style={{ width: "70%" }}>
+            <Typography gutterBottom variant="h6">
+              Write a comment
+            </Typography>
+            <TextField
+              fullWidth
+              variant="outlined"
+              rows={4}
+              label="Comment"
+              multiline
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
 
-          <Button
-            style={{ marginTop: "10px" }}
-            fullWidth
-            variant="contained"
-            color="primary"
-            disabled={!comment}
-            onclick={handleClick}
-          >
-            Comment
-          </Button>
-        </div>
+            <Button
+              style={{ marginTop: "10px" }}
+              fullWidth
+              variant="contained"
+              color="primary"
+              disabled={!comment}
+              onClick={handleClick}
+            >
+              Comment
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
