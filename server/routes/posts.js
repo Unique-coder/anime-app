@@ -8,6 +8,7 @@ import {
   updatePost,
   deletePost,
   likePost,
+  commentPost,
 } from "../controllers/post.js";
 
 import auth from "../middleware/auth.js";
@@ -35,5 +36,8 @@ router.delete("/:id", auth, deletePost);
 
 // Update like count information on the database
 router.patch("/:id/likePost", auth, likePost);
+
+// Update like count information on the database
+router.post("/:id/commentPost", auth, commentPost);
 
 export default router;
