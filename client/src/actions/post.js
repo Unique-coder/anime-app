@@ -1,6 +1,6 @@
 import * as api from "../api/index.js";
 import {
-  // COMMENT,
+  COMMENT,
   FETCH_POST,
   FETCH_ALL,
   FETCH_BY_SEARCH,
@@ -105,7 +105,8 @@ export const commentPost = (value, id) => async (dispatch) => {
   try {
     const { data } = await api.comment(value, id);
 
-    // dispatch({ type: COMMENT, payload: data });
+    dispatch({ type: COMMENT, payload: data });
+    return data.comments;
   } catch (error) {
     console.error(error.message);
   }

@@ -21,7 +21,7 @@ export const getPosts = async (req, res) => {
 
   try {
     // LIMIT= no of post per page ()
-    const LIMIT = 4;
+    const LIMIT = 6;
 
     // Get starting index of every page moved to.
     const startIndex = (Number(page) - 1) * LIMIT;

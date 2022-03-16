@@ -9,15 +9,20 @@ import { commentPost } from "../../actions/post";
 const CommentSection = ({ post }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [comments, setComments] = useState([1, 2, 3, 4]);
+  const [comments, setComments] = useState(post?.comments);
   const [comment, setComment] = useState("");
-
+  const commentsRef = useRef();
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  const handleClick = () => {
-    const finalComment = `${user.result.name}: ${comment}`;
+  const handleClick = async () => {
+    const newComments = await dispatch(
+      commentPost(`${user?.result?.name}: ${comment}`, post._id)
+    );
 
-    dispatch(commentPost(finalComment, post._id));
+    setComment("");
+    setComments(newComments);
+
+    commentsRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -29,9 +34,10 @@ const CommentSection = ({ post }) => {
           </Typography>
           {comments.map((c, i) => (
             <Typography key={i} gutterBottom variant="subtitle1">
-              Comments {i}
+              {c}
             </Typography>
           ))}
+          <div ref={commentsRef} />
         </div>
         {/* Check if there is a user logged in. If there is, show comments textfield if not hide it. */}
         {user?.result?.name && (

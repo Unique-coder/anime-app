@@ -94,7 +94,7 @@ const PostDetails = () => {
               ({ title, name, message, likes, selectedFile, _id }) => (
                 <div
                   style={{ margin: "20px", cursor: "pointer" }}
-                  onClick={() => openPost(_id)}
+                  onClick={openPost}
                   key={_id}
                 >
                   <Typography gutterBottom variant="h6">
