@@ -1,25 +1,40 @@
 import jwt, { decode } from "jsonwebtoken";
 
 const auth = async (req, res, next) => {
-  try {
-    const token = await req.headers.authorization.split(" ")[1];
-    const isCustomAuth = token.length < 500;
+  if (
+    //In http headers, we have authorisations object
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    try {
+      //Get token from bearer. split turns it into an array and gets value of position [1] which is token. value of [0] = bearer tag
+      const token = await req.headers.authorization.split(" ")[1];
 
-    let decodedData;
+      // If token is less than 500 it is ours else user token is from google auth
+      const isCustomAuth = token.length < 500;
 
-    if (token && isCustomAuth) {
-      decodedData = jwt.verify(token, "Unique");
+      let decodedData;
 
-      req.userId = decodedData?.id;
-    } else {
-      decodedData = jwt.decode(token);
+      // Verify token
+      if (token && isCustomAuth) {
+        decodedData = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-      req.userId = decodedData?.sub;
+        // Get user from the token
+        req.userId = decodedData?.id;
+      } else {
+        // Verify token from google auth
+        decodedData = jwt.decode(token);
+
+        // Get user from the token google auth
+        req.userId = decodedData?.sub;
+      }
+
+      next();
+    } catch (error) {
+      console.log(error.message);
+      res.status(401);
+      throw new Error("Not authorized");
     }
-
-    next();
-  } catch (error) {
-    console.log(error.message);
   }
 };
 

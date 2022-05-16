@@ -37,11 +37,11 @@ export const signin = async (req, res) => {
     // Get jsonwebtoken and send t the frontend. Information to store in the token, + secret key string, + How long to stay logged in
     const token = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
-      "Unique",
+      process.env.JWT_SECRET_KEY,
       { expiresIn: "1h" }
     );
 
-    res.status(200).json({ result: existingUser, token });
+    res.status(200).json({ result: existingaUser, token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -76,7 +76,10 @@ export const signup = async (req, res) => {
     // console.log(result.email, result.password, result.name);
 
     // Get jsonwebtoken and send t the frontend. Information to store in the token, + secret key string, + How long to stay logged in
-    const token = jwt.sign({ email: result.email, id: result._id }, "Unique");
+    const token = jwt.sign(
+      { email: result.email, id: result._id },
+      process.env.JWT_SECRET_KEY
+    );
 
     res.status(200).json({ result, token });
   } catch (error) {
